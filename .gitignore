@@ -124,3 +124,9 @@ sympy-plots-for-*.tex/
 # WinEdt
 *.bak
 *.sav
+
+# java files
+*.class
+*.jar
+*.i7
+
