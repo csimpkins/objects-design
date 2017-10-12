@@ -1,0 +1,237 @@
+\documentclass{beamer}
+
+\newcommand{\course}{CS 2340 Objects and Design}
+\newcommand{\lesson}{Clean Boundaries}
+\newcommand{\code}{http://www.cc.gatech.edu/~simpkins/teaching/gatech/cs2340/code}
+
+\author[Chris Simpkins] 
+{Christopher Simpkins \\\texttt{chris.simpkins@gatech.edu}}
+\institute[Georgia Tech] % (optional, but mostly needed)
+
+\date[CS 1331]{}
+
+\include{beamer-common}
+
+% \beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Using Third Party Code}
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Library Providers versus Library Users}
+
+
+Tension between providers of an interface and users of an interface
+\begin{itemize}
+\item Providers want to produce maximally flexible and useful functionality for a wide audience.
+\item Users want to focus on their needs.
+\end{itemize}
+
+This tension is particularly acute in standard library classes.  Consider {\tt java.util.Map} ...
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{A Key-Value Sensors Data Structure}
+
+
+Say you have an application that needs to maintain sensors that are identified by ids.  This is precisely what {\tt Map}s are for, so you use a {\tt Map}.  But ...
+
+\begin{itemize}
+\item your code passes around sensors, and most parts of your app should only retrieve sensors from the {\tt Map}, and
+\item {\tt java.util.Map} includes methods that allow users to delete items from the map.
+\end{itemize}
+
+The provider of {\tt Map} is providing flexibility we don't want.
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{How to Deal with Overly General Library Classes}
+
+
+If we use {\tt Map} to hold sensors, we end up with code like this:
+\begin{lstlisting}[language=Java]
+Map<Sensor> sensors = new HashMap<Sensor>();
+...
+Sensor s = sensors.get(sensorId );
+\end{lstlisting}
+
+There's a concept here that's begging to be represented in our system:
+\begin{lstlisting}[language=Java]
+public class Sensors {
+  private Map<String, Sensor> sensors = new HashMap<>();
+
+  public Sensor getById(String id) {
+    return sensors.get(id);
+  }
+  // ...
+}
+\end{lstlisting}
+
+\begin{itemize}
+\item Wrapping not necessary for every use of {\tt Map}, but generally not a good idea to pass {\tt Map}s around.
+\item This ``wrapping'' technique is a good general approach to deal with overly general third-party libraries at boundaries.
+\end{itemize}
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Exploring and Learning Boundaries}
+
+
+When you need a capability, you can write the code yourself, or use a library that provides the capability.
+\begin{itemize}
+\item If a libary is available, ``buy, don't build.''
+\item Still have to learn the library.
+\end{itemize}
+
+Instead of studying documentation, write {\it learning tests}.
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Learning {\tt log4j}}
+
+
+We write a simple test the way we think the library should work:
+\begin{lstlisting}[language=Java]
+@Test
+public void testLogCreate() {
+  Logger logger = Logger.getLogger("MyLogger");
+  logger.info("hello");
+}
+\end{lstlisting}
+
+When the test runs, we get an error saying that we need an {\tt Appender}, so we look up {\tt Appender}s in thr docs and update our test:
+\begin{lstlisting}[language=Java]
+@Test
+public void testLogAddAppender() {
+  Logger logger = Logger.getLogger("MyLogger");
+  ConsoleAppender appender = new ConsoleAppender();
+  logger.addAppender(appender);
+  logger.info("hello");
+}
+\end{lstlisting}
+
+This time we get an error about a missing output stream, ...
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Learning Tests Lead to Boundary Tests}
+
+... so we read a little more and come up with:
+\begin{lstlisting}[language=Java]
+@Test
+public void testLogAddAppender() {
+  Logger logger = Logger.getLogger("MyLogger");
+  logger.removeAllAppenders();
+  logger.addAppender(new ConsoleAppender(
+      new PatternLayout("%p %t %m%n"),
+      ConsoleAppender.SYSTEM_OUT));
+  logger.info("hello");
+}
+\end{lstlisting}
+
+After a few more iterations of writing tests and reading docs, we know how {\tt log4j} works and we have a set of tests with example code.
+\begin{itemize}
+\item These tests are {\it boundary tests} that use the library the same way as our production code.
+\item When a new version of the library is released, we can test it with our boundary tests before integrating it with production code.
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{The Adapter Pattern\footnote{GoF, {\it Design Patterns}, 1994} (A.K.A Wrapper)}
+
+
+
+{\bf Intent}: Convert the interface of a class into another interface clients expect. Adapter lets classes work together that couldn't otherwise because of incompatible interfaces.
+
+{\bf Structure}
+\vspace{-.05in}
+\begin{center}
+\includegraphics[height=1.2in]{adapter-pattern.png}\\
+\end{center}
+\vspace{-.125in}
+{\bf Participants}
+\begin{itemize}
+\item {\bf Target} defines the domain-specific interface that Client uses.
+\item {\bf Client} collaborates with objects conforming to the Target interface.
+\item {\bf Adaptee} defines an existing interface that needs adapting.
+\item {\bf Adapter} adapts the interface of Adaptec to the Target interface.
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Integrating Future Code}
+
+\begin{itemize}
+\item Imagine we're a team writing an application that will use a hardware transmitter, but the transmitter's software is handled by another team that hasn't defined their software interface.
+\item We can define our own interface the way {\it we} want it to work.
+\item While we're waiting for the transmitter team, we create a fake implementation to work with.
+\item When the transmitter team finally gives us their interface, we can write an adapter to fit it to our interface.
+\item The rest of our code is unaffected.
+\end{itemize}
+
+\begin{center}
+\includegraphics[height=1.25in]{transmitter-adapter.png}
+\end{center}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Final Thoughts on Boundaries}
+
+
+\begin{itemize}
+\item Third-party libraries out of our control.
+\item Boundary tests minimize surprises when migrating to new versions of libraries.
+\item Minimize the number of places in our code that accesses third-party libraries.
+\item Sequester third-party libraries in boundary code using the adapter pattern.
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+% %------------------------------------------------------------------------
+% \begin{frame}[fragile]{}
+
+
+% \begin{lstlisting}[language=Java]
+
+% \end{lstlisting}
+
+% \begin{itemize}
+% \item
+% \end{itemize}
+
+
+% \end{frame}
+% %------------------------------------------------------------------------
+
+
+\end{document}

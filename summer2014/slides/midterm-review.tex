@@ -1,0 +1,308 @@
+\documentclass{beamer}
+
+\newcommand{\course}{CS 2340 Objects and Design}
+\newcommand{\lesson}{Midterm Review}
+\newcommand{\code}{http://www.cc.gatech.edu/~simpkins/teaching/gatech/cs2340/code}
+
+\author[Chris Simpkins] 
+{Christopher Simpkins \\\texttt{chris.simpkins@gatech.edu}}
+\institute[Georgia Tech] % (optional, but mostly needed)
+
+\date[CS 1331]{}
+
+\include{beamer-common}
+
+% \beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Version Control Systems}
+
+\begin{itemize}
+\item Records changes to files over time
+\item Allows you to recover older versions of a file (effectively ``undoing'' recent chagnes)
+\item Many people already do this
+\begin{itemize}
+\item manually by saving copies of files with version information embedded in the file name, or
+\item automatically using a commercial solutions such as Apples Time Machine.
+\end{itemize}
+\end{itemize}
+
+Neither of these approaches is sufficiently powerful for professional software development.
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Version Control Systems}
+
+
+Architectures
+\begin{itemize}
+\item Local VCS (RCS)
+\item Centralized client-server VCS (CVS, Subversion)
+\item Distributed VCS (Git, Hg, Darcs)
+\end{itemize}
+Locking Models
+\begin{itemize}
+\item Pessimistic locking (most commercial VCSes)
+\item Optimistic locking (Most open-source VCSes - CVS, SVN, Git, Hg)
+\end{itemize}
+
+\end{frame}
+%------------------------------------------------------------------------
+
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Pro Java}
+
+
+\begin{itemize}
+\item The classpath
+\item Separating source and compiler output
+\item Project directory layout
+\item Packages
+\item Jar files
+\end{itemize}
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Agile Software Processes}
+
+
+Software development lifecycle
+\begin{itemize}
+\item Risk Management
+\item Sequence of activities
+\item Conceptual models: waterfall, spiral/iterative
+\end{itemize}
+
+Agile software development
+\begin{itemize}
+\item Individuals and Interactions over process and tools
+\item Working software over comprehensive documentation (design as you go -- no big up front design)
+\item Customer Collaboration over contract negotiation
+\item Responding to Change over following a plan
+\end{itemize}
+
+\end{frame}
+%------------------------------------------------------------------------
+
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Testing}
+
+
+\begin{itemize}
+\item Test writing techniques
+\begin{itemize}
+\item Boundary conditions (on boundary, and one off)
+\item Equivalence partitions (one case per)
+\item ``Plausible'' faults (specific values)
+\end{itemize}
+\item Black box and white box tests
+\item Test-driven development
+\begin{itemize}
+\item {\bf First Law} You may not write production code until you have written a failing unit test.
+\item {\bf Second Law} You may not write more of a unit test than is sufficient to fail, and not compiling is failing.
+\item {\bf Third Law} You may not write more production code than is sufficient to pass the currently failing test.
+\end{itemize}
+\item Testing F.I.R.S.T. rules: tests should be fast, indepedent, repeatable, self-validating, and timely
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Clean Code}
+
+
+What is ``clean code?''
+\begin{itemize}
+\item Elegant and efficient. -- Bjarne Stroustrup
+\item Simple and direct. Readable.  -- Grady Booch
+\item Understandable by others, tested, literate. -- Dave Thomas
+\item Code works pretty much as expected.  Beatuful code looks like the language was made for the problem. -- Ward Cunningham
+\end{itemize}
+
+Why do we care abou clean code?
+\begin{itemize}
+\item Messes are costly.  Quick and dirty to get it done ends up not getting it done and you will not enjoy it.  It's lose-lose!
+\item We are professionals who care about our craft. 
+\end{itemize}
+
+The Boy Scout Rule
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Clean Names}
+
+
+
+\begin{itemize}
+\item Names should mean something
+\item Names should reveal intent
+\item Name should not disinform
+\item Names should make distinctions
+\item Avoid encodings
+\item Avoid mental mapping. We're all smart.  Smart coders make things clear.
+\begin{itemize}
+\item So simple only a genius could have thought of it. -- Einstein
+\item Simplicity does not precede complexity but follows it. -- Perlis
+\end{itemize}
+\item Use nouns or noun phrases for class names.
+\item Use verbs or verb phrases for method names.
+\item Don't use puns or jokes in names.
+\item Use one word per concept.
+\item Use CS terms in names.
+\item Use problem domain terms in names.
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Clean Functions}
+
+
+Functions Should be Small and Do one Thing Only
+\begin{itemize}
+\item The first rule of functions: functions should be small.
+\item The second rule of functions: functions should be small.
+\end{itemize}
+
+\begin{itemize}
+\item One level of abstraction per function.
+\begin{itemize}
+\item A function that implements a higher-level algorithm should call helper functions to execute the steps of the algorithm.
+\end{itemize}
+\item Write code using the stepdown rule.
+\begin{itemize}
+\item Code should read like a narrative from top to bottom.
+\item Read a higher level function to get the big picture, the functions below it to get the details.
+\end{itemize}
+\item The fewer the function parameters, the better
+\item Avoid side-effects
+\item Use return values rather than output parameters
+\item Prefer exceptions to error codes
+\end{itemize}
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Clean Comments}
+
+
+Sometimes comments are useful.
+\begin{itemize}
+\item Legal comments (copyright notices, licenses)
+\item Informative comments
+\item Explanation of intent
+\item Clarifications
+\item Warnings
+\item Todos
+\item Amplification
+\item Javadocs for public APIs
+\end{itemize}
+
+Most comments are bad. 
+\begin{itemize}
+\item Redundancies
+\item Misleading
+\item Noise
+\end{itemize}
+
+Remember: comments make up for lack of expressivity in a programming language.  You shouldn't need many, and you certainly don't need long comments.
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{CLean Formatting}
+
+
+The purpose of formatting is to facilitate communication.  The formatting of code conveys information to the reader.
+
+Vertical formatting
+\begin{itemize}
+\item Newspaper metaphor
+\item Vertical openness between concepts
+\item Vertical density
+\item Vertical distance
+\item Vertical ordering
+\end{itemize}
+
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Unified Modeling Langauge (UML)}
+
+
+A standardized diagrammatic language for communicating OO designs in a language-independent way.  Very rich, but for now focus on:
+\begin{itemize}
+\item use cases,
+\item domain model (classes and associations),
+\item packages, and
+\item sequence digrams.
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Clean Classes}
+
+
+\begin{itemize}
+\item Data abstraction
+\item Data structure classes versus object-oriented classes
+\item Data/Object Anti-symmetry
+\begin{itemize}
+\item Procedural code (code using data structures) makes it easy to add new functions without changing the existing data structures. OO code, on the other hand, makes it easy to add new classes without changing existing functions.
+\item Procedural code makes it hard to add new data structures because all the functions must change. OO code makes it hard to add new functions because all the classes must change.
+\end{itemize}
+\item Law of Demeter
+\item Single responsibility principle
+\item Open closed principle
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+% %------------------------------------------------------------------------
+% \begin{frame}[fragile]{}
+
+
+% \begin{lstlisting}[language=Java]
+
+% \end{lstlisting}
+
+% \begin{itemize}
+% \item
+% \end{itemize}
+
+
+% \end{frame}
+% %------------------------------------------------------------------------
+
+
+\end{document}

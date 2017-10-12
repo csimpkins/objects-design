@@ -1,0 +1,232 @@
+\documentclass{beamer}
+
+\newcommand{\course}{CS 2340 Objects and Design}
+\newcommand{\lesson}{Creational Patterns}
+\newcommand{\code}{http://www.cc.gatech.edu/~simpkins/teaching/gatech/cs2340/code}
+
+\author[Chris Simpkins] 
+{Christopher Simpkins \\\texttt{chris.simpkins@gatech.edu}}
+\institute[Georgia Tech] % (optional, but mostly needed)
+
+\date[CS 1331]{}
+
+\include{beamer-common}
+
+% \beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Creational Design Patterns}
+
+
+Abstracts the instantiation process.
+\begin{itemize}
+\item Encapsulate knowledge about which concrete classes the system uses.
+\item Hide how instances of these classes are created and put together.
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Abstract Factory}
+
+
+{\bf Intent}: Provide an interface for creating families of related or dependent objects without specifying their concrete classes.
+
+{\bf Structure}
+\vspace{-.15in}
+\begin{center}
+\includegraphics[height=1.2in]{abstract-factory-pattern.png}\\
+\end{center}
+\vspace{-.225in}
+{\bf Participants}
+\begin{itemize}
+\item {\bf AbstractFactory} declares an interface for operations that create abstract product objects.
+\item {\bf ConcreteFactory} implements the operations to create concrete product objects.
+\item {\bf AbstractProduct} declares an interface for a type of product.
+\item {\bf ConcreteProduct} defines a product object to be created by the corresponding concrete factory; implements the AbstractProduct interface.
+\item {\bf Client} uses only interfaces declared by AbstractFactory and AbstractProduct classes.
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Factory Method (a.k.a. Virtual Constructor)}
+
+\vspace{-.05in}
+{\bf Intent}: Define an interface for creating an object, but let subclasses decide which class to instantiate. Factory Method lets a class defer instantiation to subclasses.
+
+{\bf Structure}
+\vspace{-.1in}
+\begin{center}
+\includegraphics[height=1.1in]{factory-method-pattern.png}\\
+\end{center}
+\vspace{-.2in}
+{\bf Participants}
+\begin{itemize}
+\item {\bf Product} defines the interface of objects the factory creates.
+\item {\bf ConcreteProduct} implements the Product interface.
+\item {\bf Creator} declares the factory method, which returns an object of type Product.
+\item {\bf ConcreteCreator} overrides factory method to return a ConcreteProduct object.
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Factory Method Example: Active Records (1 of 4)}
+
+
+Say we have a solution domain object that represents a problem domain entity:
+\begin{lstlisting}[language=Java]
+public class Person {
+
+    protected final int id;
+    protected String name;
+   
+    public Person(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+}
+\end{lstlisting}
+How can we add persistence capability in an abstract way so that we can swap out different persistence implementations (database, etc.)?
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Factory Method Example: Active Records (2 of 4)}
+
+
+Active Records are objects that  know how to store and retrieve themselves from a data store.  The simplest implementation of an ActiveRecord uses an abstract class:
+\begin{lstlisting}[language=Java]
+public abstract class ActivePerson extends Person {
+
+    public ActivePerson(int id, String name) {
+        super(id, name);
+    }
+
+    public abstract Person createNew(String name);
+
+    public abstract Person findById(int id);
+
+    public abstract void save();
+}
+\end{lstlisting}
+\vspace{-.05in}
+{\tt ActivePerson} extends {\tt Person} with persistence capabilities.  Now applications that use a particular data store can sublcass {\tt ActivePerson} and implement data store-specific versions of these persistence methods.
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Factory Method Example: Active Records (3 of 4)}
+
+
+Here's a subclass of {\tt ActivePerson} that uses a {\tt HashMap}:
+\vspace{-.05in}
+\begin{lstlisting}[language=Java]
+public class HashMapPerson extends ActivePerson {
+
+    private static HashMap<Integer, Person> persons = new HashMap<>();
+    private static int lastUsedId = 0;
+
+    protected HashMapPerson(int id, String name) {
+        super(id, name);
+    }
+
+    public Person createNew(String name) {
+        Person newPerson = new HashMapPerson(lastUsedId++, name);
+        persons.put(newId, newPerson);
+        return newPerson;
+    }
+    public Person findById(int id) {
+        return persons.get(id);
+    }
+    public void save() {
+      // nothing to do - client has alias to object in HashMap
+    }    
+}
+\end{lstlisting}
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Factory Method Example: Active Records (4 of 4)}
+
+
+Benefits of using {\tt ActivePerson}:
+\begin{itemize}
+\item A {\tt MySQLPerson} would implement MySQL-specific code that maps relational database reperesentations of objects to their Java object counterparts.
+\item Application is coded to {\tt ActivePerson} interface so versions of {\tt ActivePerson} that use different data stores can be swapped out by changing only the client code that instantiates the {\tt ActivePerson} objects.
+\item You could put all of your active record-instantiating code in an Abstract Factory or a registry (which could be a singleton) so there's only one place to make this change for all kinds of peristed objects.
+\end{itemize}
+
+There are other ways of doing this, but active records are easy to understand.  All object-relational mapping and data store frameworks use these concepts.
+
+\end{frame}
+%------------------------------------------------------------------------
+
+
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Singleton}
+
+
+{\bf Intent}: Ensure a class only has one instance, and provide a global point of access to it.
+
+{\bf Structure}
+\vspace{-.15in}
+\begin{center}
+\includegraphics[height=1in]{singleton-pattern.png}\\
+\end{center}
+\vspace{-.15in}
+{\bf Participants}
+\begin{itemize}
+\item {\bf Singleton} defines an Instance operation that lets clients access its unique instance.
+\begin{itemize}
+\item Instance is a class operation (that is, a class method in Smalltalk and a static member function in C++, or static method in Java).
+\item May be responsible for creating its own unique instance.
+\end{itemize}
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+% %------------------------------------------------------------------------
+% \begin{frame}[fragile]{}
+
+
+% \begin{lstlisting}[language=Java]
+
+% \end{lstlisting}
+
+% \begin{itemize}
+% \item
+% \end{itemize}
+
+
+% \end{frame}
+% %------------------------------------------------------------------------
+
+
+\end{document}

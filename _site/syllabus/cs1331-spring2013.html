@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.10: http://docutils.sourceforge.net/" />
+<title>CS 1331 Introduction to Object Oriented Programming</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 7514 2012-09-14 14:27:12Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: grey; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="cs-1331-introduction-to-object-oriented-programming">
+<h1 class="title">CS 1331 Introduction to Object Oriented Programming</h1>
+<h2 class="subtitle" id="spring-2013-syllabus-for-sections-a1-a2-a3-a4-and-gr">Spring 2013 Syllabus for Sections A1, A2, A3, A4 and GR</h2>
+
+<p>Last updated on 2013-05-26 at 07:47.</p>
+<p>This open-access part of the syllabus contains schedule and general information for my sections.  The official CS 1331 for all sections, additional resources and all grade-related information are on T-Square.</p>
+<p>There is also a general syllabus here: <a class="reference external" href="cs1331-syllabus.pdf">cs1331-syllabus.pdf</a></p>
+<div class="section" id="news">
+<h1>NEWS</h1>
+<p>Be a TA for Summer or Fall 2013.  See <a class="reference external" href="Recruiting-2013Summer-2013Fall.pdf">Recruiting-2013Summer-2013Fall.pdf</a></p>
+</div>
+<div class="section" id="instructor">
+<h1>Instructor</h1>
+<p>Chris Simpkins</p>
+<p><a class="reference external" href="mailto:chris.simpkins&#64;gatech.edu">chris.simpkins&#64;gatech.edu</a></p>
+<p><a class="reference external" href="http://www.cc.gatech.edu/~simpkins/">http://www.cc.gatech.edu/~simpkins/</a></p>
+</div>
+<div class="section" id="schedule-and-office-hours">
+<h1>Schedule and Office Hours</h1>
+<ul class="simple">
+<li>Lectures: Monday, Wednesday and Friday at 14:05 - 14:55 in Howey Physics L4</li>
+<li>Recitations:<ul>
+<li>Section A1: Tuesday at 15:05 - 16:25 in Van Leer C240</li>
+<li>Section A2: Tuesday at 16:35 - 17:55 in Van Leer C240</li>
+<li>Section A3: Tuesday at 16:35 - 17:55 in Van Leer C340</li>
+<li>Sections A4 and GR: Tuesday at 15:05 - 16:25 in Van Leer C340</li>
+</ul>
+</li>
+<li>Office Hours: Mondays and Wednesdays after class, other times by
+appointment, always available by email.</li>
+</ul>
+<p>Please see the common CS1331 syllabus on T-Square for grading, course policies and procedures.</p>
+</div>
+<div class="section" id="textbook">
+<h1>Textbook</h1>
+<p>Walter Savitch and Kenrick Mock, Absolute Java, 5th edition, Addison-Wesley, March 9, 2012</p>
+<ul class="simple">
+<li>ISBN-10: 0-13-283031-0</li>
+<li>ISBN-13: 978-0-13-283031-7</li>
+</ul>
+</div>
+<div class="section" id="resources">
+<h1>Resources</h1>
+<div class="sidebar">
+<p class="first sidebar-title">A Message From Academic Advising</p>
+<p>Struggling in class,  cannot comprehend the concepts,  need help with learning the materials?   Need a better grade on your test?  Take advantage of the FREE Tutoring that CS offers.</p>
+<p>CS offers tutoring for the following classes:</p>
+<blockquote>
+CS 1301, CS 1331, CS 1332, CS 2050, CS 2110,  CS 2200.</blockquote>
+<p class="last">If you would like to take advantage of these tutoring resources, send email to Kathy Earwood (<a class="reference external" href="mailto:kathy&#64;cc.gatech.edu">kathy&#64;cc.gatech.edu</a>). In the subject line of your email write  &quot;Need a Tutor – CS1331&quot;.  The body of your email should include your name, GT ID number, Email address, and course number to be tutored.</p>
+</div>
+<div class="section" id="java">
+<h2>Java</h2>
+<ul class="simple">
+<li>Download the <a class="reference external" href="http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html#javasejdk">Java SDK</a></li>
+<li><a class="reference external" href="http://docs.oracle.com/javase/specs/">Java Language Specification</a></li>
+<li><a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/">Online Java 7 API docs</a></li>
+<li><a class="reference external" href="http://www.oracle.com/technetwork/java/javase/documentation/java-se-7-doc-download-435117.html">Java 7 API docs downloads</a></li>
+<li><a class="reference external" href="http://simpkins.org/java-lib-src/">Java Standard Library Source</a></li>
+<li><a class="reference external" href="http://www.oracle.com/technetwork/java/codeconv-138413.html">Java Code Conventions</a> - Sun/Oracle's official code conventions for Java.  They're not perfect, and parts are dated (like the advice on make files), but most professional Java teams use these conventions. (Note: the official style guide for this course is on T-Square.  The CS 1331 style guide on T-Square is a nice concise distillation of Sun's conventions.)</li>
+</ul>
+</div>
+<div class="section" id="guides">
+<h2>Guides</h2>
+<ul class="simple">
+<li><a class="reference external" href="../guides/text-editors.html">Text Editors</a> - an intro to text editors for beginning programmers</li>
+<li><a class="reference external" href="../guides/unix-emacs.html">Basic Unix and Emacs</a> - a tutorial introduction to Unix and Emacs
+that will give you the basic skills you need for this class should you choose to use a unix-like operating system like Ubuntu Linux or Mac OS X</li>
+<li><a class="reference external" href="../guides/unix-vi.html">Basic Unix and Vim</a> - same as <a class="reference external" href="../guides/unix-emacs.html">Basic Unix and Emacs</a> but using
+Vim instead of Emacs</li>
+<li><a class="reference external" href="../guides/java7-macosx.html">Java 7 on Mac OS X</a> - follow this guide if you have a Mac.</li>
+</ul>
+</div>
+<div class="section" id="misc">
+<h2>Misc</h2>
+<ul class="simple">
+<li>Inspiration: <a class="reference external" href="https://www.youtube.com/watch?v=nKIu9yen5nc">https://www.youtube.com/watch?v=nKIu9yen5nc</a></li>
+<li>Awwww! <a class="reference external" href="http://scratch.mit.edu/projects/TinyBallerina/3135848">http://scratch.mit.edu/projects/TinyBallerina/3135848</a> - a <a class="reference external" href="http://scratch.mit.edu/">Scratch</a> project my daughter wrote in memory of her first fish, Sapphire.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="lecture-schedule">
+<h1>Lecture Schedule</h1>
+<p>This schedule is subject ot change.  The further in the future, the less certain the schedule.  AJ means Absolute Java.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="40%" />
+<col width="44%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Date</th>
+<th class="head">Topics</th>
+<th class="head">Readings and Example Code</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>2013-01-07</td>
+<td><a class="reference external" href="../slides/introduction.pdf">Introduction</a></td>
+<td>Syllabus</td>
+</tr>
+<tr><td>2013-01-09</td>
+<td><a class="reference external" href="../slides/java-overview.pdf">Java Overview</a></td>
+<td>AJ 1.1-1.2</td>
+</tr>
+<tr><td>2013-01-11</td>
+<td><a class="reference external" href="../slides/values-variables.pdf">Values and Variables</a></td>
+<td>AJ 1.3-1.4</td>
+</tr>
+<tr><td>2013-01-14</td>
+<td><a class="reference external" href="../slides/strings.pdf">Strings</a></td>
+<td><a class="reference external" href="../code/Strings.java">Strings.java</a>, <a class="reference external" href="../code/NameParser.java">NameParser.java</a></td>
+</tr>
+<tr><td>2013-01-16</td>
+<td><a class="reference external" href="../slides/console-io.pdf">Console IO</a></td>
+<td>AJ 2, <a class="reference external" href="../code/ConsoleOutput.java">ConsoleOutput.java</a>,
+<a class="reference external" href="../code/CurrencyFormatting.java">CurrencyFormatting.java</a>,
+<a class="reference external" href="../code/ConsoleInput.java">ConsoleInput.java</a>,
+<a class="reference external" href="../code/CourseAverage.java">CourseAverage.java</a>,
+<a class="reference external" href="../code/grades.txt">grades.txt</a></td>
+</tr>
+<tr><td>2013-01-18</td>
+<td><a class="reference external" href="../slides/conditional-execution.pdf">Conditional Execution</a></td>
+<td>AJ 3.1-3.2, <a class="reference external" href="../code/Conditionals.java">Conditionals.java</a>
+<a class="reference external" href="../code/Switch.java">Switch.java</a></td>
+</tr>
+<tr><td>2013-01-21</td>
+<td>No Class - MLK Day</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>2013-01-23</td>
+<td><a class="reference external" href="../slides/loops.pdf">Loops</a></td>
+<td>AJ 3.3, <a class="reference external" href="../code/Loops.java">Loops.java</a></td>
+</tr>
+<tr><td>2013-01-25</td>
+<td><a class="reference external" href="../slides/debugging.pdf">Debugging</a></td>
+<td>AJ 3.4-3.5, <a class="reference external" href="../code/Bugs.java">Bugs.java</a>,
+<a class="reference external" href="../code/InsertionSort.java">InsertionSort.java</a></td>
+</tr>
+<tr><td>2013-01-28</td>
+<td><a class="reference external" href="../slides/data-abstraction.pdf">Data Abstraction</a></td>
+<td>AJ 4.1-4.2, <a class="reference external" href="../code/Complex.java">Complex.java</a></td>
+</tr>
+<tr><td>2013-01-30</td>
+<td><a class="reference external" href="../slides/classes.pdf">Classes</a></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>2013-02-01</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>2013-02-04</td>
+<td><a class="reference external" href="../slides/review1.pdf">Review1</a></td>
+<td><a class="reference external" href="../code/Hello.java">Hello.java</a>, <a class="reference external" href="../code/ShortCircuit.java">ShortCircuit.java</a></td>
+</tr>
+<tr><td>2013-02-06</td>
+<td>Exam 1</td>
+<td>AJ 1-4</td>
+</tr>
+<tr><td>2013-02-08</td>
+<td><a class="reference external" href="../slides/classes.pdf">Classes</a></td>
+<td>AJ 5, <a class="reference external" href="../code/Card0.java">Card0.java</a>,
+<a class="reference external" href="../code/Card1.java">Card1.java</a>,
+<a class="reference external" href="../code/Card2.java">Card2.java</a>, <a class="reference external" href="../code/Dealer2.java">Dealer2.java</a>,
+<a class="reference external" href="../code/Card3.java">Card3.java</a>, <a class="reference external" href="../code/Dealer3.java">Dealer3.java</a>,
+<a class="reference external" href="../code/Card4.java">Card4.java</a>, <a class="reference external" href="../code/Dealer4.java">Dealer4.java</a>,
+<a class="reference external" href="../code/Card5.java">Card5.java</a>, <a class="reference external" href="../code/Dealer5.java">Dealer5.java</a>,
+<a class="reference external" href="../code/Card6.java">Card6.java</a>, <a class="reference external" href="../code/Dealer6.java">Dealer6.java</a>,
+<a class="reference external" href="../code/Card.java">Card.java</a></td>
+</tr>
+<tr><td>2013-02-11</td>
+<td><a class="reference external" href="../slides/arrays1.pdf">Arrays1</a></td>
+<td>AJ 6.1-6.2
+<a class="reference external" href="../code/ArrayBasics.java">ArrayBasics.java</a>,
+<a class="reference external" href="../code/Shout.java">Shout.java</a>,</td>
+</tr>
+<tr><td>2013-02-13</td>
+<td><a class="reference external" href="../slides/arrays2.pdf">Arrays2</a></td>
+<td>AJ 6.3
+<a class="reference external" href="../code/CourseAverage.java">CourseAverage.java</a>,
+<a class="reference external" href="../code/MyYears.java">MyYears.java</a>,
+<a class="reference external" href="../code/VarArgs.java">VarArgs.java</a>,
+<a class="reference external" href="../code/PlayingCard.java">PlayingCard.java</a>,</td>
+</tr>
+<tr><td>2013-02-15</td>
+<td><a class="reference external" href="../slides/arrays3.pdf">Arrays3</a></td>
+<td><p class="first">AJ 6.4
+<a class="reference external" href="../code/Smiley.java">Smiley.java</a>,
+<a class="reference external" href="../code/array-data.csv">array-data.csv</a>,
+<a class="reference external" href="../code/SimpleArrayCsv.java">SimpleArrayCsv.java</a>,</p>
+<p class="last">Progress reports due by noon</p>
+</td>
+</tr>
+<tr><td>2013-02-18</td>
+<td><a class="reference external" href="../slides/inheritance1.pdf">Inheritance1</a></td>
+<td>AJ 7.1-7.2
+<a class="reference external" href="../code/Employee.java">Employee.java</a>,
+<a class="reference external" href="../code/HourlyEmployee.java">HourlyEmployee.java</a></td>
+</tr>
+<tr><td>2013-02-20</td>
+<td><a class="reference external" href="../slides/inheritance2.pdf">Inheritance2</a></td>
+<td>AJ 7.3
+<a class="reference external" href="../code/MutableHourlyEmployee.java">MutableHourlyEmployee.java</a></td>
+</tr>
+<tr><td>2013-02-22</td>
+<td><a class="reference external" href="../slides/oop1.pdf">OOP1</a></td>
+<td>AJ 8.1
+<a class="reference external" href="../code/SalariedEmployee.java">SalariedEmployee.java</a>
+<a class="reference external" href="../code/Company.java">Company.java</a></td>
+</tr>
+<tr><td>2013-02-25</td>
+<td><a class="reference external" href="../slides/oop2.pdf">OOP2</a></td>
+<td>AJ 8.1
+<a class="reference external" href="../code/SummerIntern.java">SummerIntern.java</a></td>
+</tr>
+<tr><td>2013-02-27</td>
+<td><a class="reference external" href="../slides/oop3.pdf">OOP3</a></td>
+<td>AJ 8.2</td>
+</tr>
+<tr><td>2013-03-01</td>
+<td><a class="reference external" href="../slides/oop4.pdf">OOP4</a></td>
+<td><p class="first">AJ 13.1
+<a class="reference external" href="../code/PlayingCard.java">PlayingCard.java</a>
+<a class="reference external" href="../code/Deck.java">Deck.java</a>
+<a class="reference external" href="../code/BlackjackHand.java">BlackjackHand.java</a>
+<a class="reference external" href="../code/BlackjackGame.java">BlackjackGame.java</a>
+<a class="reference external" href="../code/BlackjackPlayer.java">BlackjackPlayer.java</a>
+<a class="reference external" href="../code/RandomPlayer.java">RandomPlayer.java</a>
+<a class="reference external" href="../code/HumanPlayer.java">HumanPlayer.java</a></p>
+<p class="last">Drop deadline</p>
+</td>
+</tr>
+<tr><td>2013-03-04</td>
+<td><a class="reference external" href="../slides/review2.pdf">Review2</a></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>2013-03-06</td>
+<td>Exam 2</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>2013-03-08</td>
+<td><a class="reference external" href="../slides/exception-handling.pdf">Exception Handling</a></td>
+<td>AJ 9.1
+<a class="reference external" href="../code/Company.java">Company.java</a>
+<a class="reference external" href="../code/GuessNumber.java">GuessNumber.java</a></td>
+</tr>
+<tr><td>2013-03-11</td>
+<td><a class="reference external" href="../slides/programming-exceptions.pdf">Programming with Exceptions</a></td>
+<td>AJ 9.2
+<a class="reference external" href="../code/Wee.java">Wee.java</a></td>
+</tr>
+<tr><td>2013-03-13</td>
+<td><a class="reference external" href="../slides/recursion.pdf">Recursion</a></td>
+<td>AJ 11
+<a class="reference external" href="../code/Fac.java">Fac.java</a></td>
+</tr>
+<tr><td>2013-03-15</td>
+<td><a class="reference external" href="../slides/file-io.pdf">File IO</a></td>
+<td>AJ 10</td>
+</tr>
+<tr><td>2013-03-18</td>
+<td>No Class - Spring Break</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>2013-03-20</td>
+<td>No Class - Spring Break</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>2013-03-22</td>
+<td>No Class - Spring Break</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>2013-03-25</td>
+<td><a class="reference external" href="../slides/swing1.pdf">Swing1</a></td>
+<td>AJ 17
+<a class="reference external" href="../code/swing/HelloSwing.java">HelloSwing.java</a>
+<a class="reference external" href="../code/swing/HelloButtons.java">HelloButtons.java</a>
+<a class="reference external" href="../code/swing/ExitListener.java">ExitListener.java</a>
+<a class="reference external" href="../code/swing/CountListener.java">CountListener.java</a></td>
+</tr>
+<tr><td>2013-03-27</td>
+<td><a class="reference external" href="../slides/swing2.pdf">Swing2</a></td>
+<td>AJ 17
+<a class="reference external" href="../code/swing/CounterFrame.java">CounterFrame.java</a>
+<a class="reference external" href="../code/swing/ColorBox.java">ColorBox.java</a></td>
+</tr>
+<tr><td>2013-03-29</td>
+<td><a class="reference external" href="../slides/swing3.pdf">Swing3</a></td>
+<td>AJ 17
+<a class="reference external" href="../code/swing/companygui/">companygui</a></td>
+</tr>
+<tr><td>2013-04-01</td>
+<td><a class="reference external" href="../slides/swing3.pdf">Swing3</a></td>
+<td>AJ 18</td>
+</tr>
+<tr><td>2013-04-03</td>
+<td><a class="reference external" href="../slides/swing4.pdf">Swing4</a></td>
+<td>AJ 18
+<a class="reference external" href="../code/swing/Jack.java">Jack.java</a>
+<a class="reference external" href="../code/swing/GtFrame.java">GtFrame.java</a></td>
+</tr>
+<tr><td>2013-04-05</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>2013-04-08</td>
+<td><a class="reference external" href="../slides/review3.pdf">Review3</a></td>
+<td>AJ 9, 11, 17, 18
+<a class="reference external" href="../code/swing/BadListener.java">BadListener.java</a>
+<a class="reference external" href="../code/swing/BetterListener.java">BetterListener.java</a></td>
+</tr>
+<tr><td>2013-04-10</td>
+<td>Exam 3</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>2013-04-12</td>
+<td><a class="reference external" href="../slides/arraylist.pdf">ArrayList</a></td>
+<td>AJ 14.1, 14.2
+<a class="reference external" href="../code/ArrayListBasics.java">ArrayListBasics.java</a>
+<a class="reference external" href="../code/ArrayListPrimitivesDemo.java">ArrayListPrimitivesDemo.java</a>
+<a class="reference external" href="../code/ArrayListGenericsDemo.java">ArrayListGenericsDemo.java</a>
+<a class="reference external" href="../code/ArrayListEqualsDemo.java">ArrayListEqualsDemo.java</a></td>
+</tr>
+<tr><td>2013-04-15</td>
+<td><a class="reference external" href="../slides/linked-lists.pdf">Linked Lists</a></td>
+<td>AJ 15.1
+<a class="reference external" href="../code/RecursiveList.java">RecursiveList.java</a>
+<a class="reference external" href="../code/LinkedList.java">LinkedList.java</a></td>
+</tr>
+<tr><td>2013-04-17</td>
+<td><a class="reference external" href="../slides/linked-lists.pdf">Linked Lists</a></td>
+<td>AJ 14.2, 15.1
+<a class="reference external" href="../code/GenericLinkedList.java">GenericLinkedList.java</a>
+<a class="reference external" href="../code/DoublyLinkedList.java">DoublyLinkedList.java</a></td>
+</tr>
+<tr><td>2013-04-19</td>
+<td><a class="reference external" href="../slides/stacks-queues.pdf">Stacks and Queues</a></td>
+<td>AJ 15.4
+<a class="reference external" href="../code/ArrayListDataStructures.java">ArrayListDataStructures.java</a></td>
+</tr>
+<tr><td>2013-04-22</td>
+<td><a class="reference external" href="../slides/binary-trees.pdf">Binary Trees</a></td>
+<td>AJ 15.7
+<a class="reference external" href="../code/BinaryTree.java">BinaryTree.java</a></td>
+</tr>
+<tr><td>2013-04-24</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>2013-04-26</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><p class="first">2013-05-03</p>
+<p class="last">11:30-14:20</p>
+</td>
+<td>Final Exam</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<!-- Slides -->
+<!-- Example code -->
+<!-- Resources -->
+</div>
+</div>
+</body>
+</html>

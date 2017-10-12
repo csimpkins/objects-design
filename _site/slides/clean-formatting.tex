@@ -1,0 +1,215 @@
+\documentclass{beamer}
+
+\newcommand{\course}{CS 2340 Objects and Design}
+\newcommand{\lesson}{Clean Formatting}
+\newcommand{\code}{http://www.cc.gatech.edu/~simpkins/teaching/gatech/cs2340/code}
+
+\author[Chris Simpkins] 
+{Christopher Simpkins \\\texttt{chris.simpkins@gatech.edu}}
+\institute[Georgia Tech] % (optional, but mostly needed)
+
+\date[CS 1331]{}
+
+\include{beamer-common}
+
+% \beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Formatting}
+
+\begin{quote}
+Code should be written for human beings to understand, and only incidentally for machines to execute. -- Hal Abelson and Gerald Sussman, SICP
+\end{quote}
+
+\begin{quote}
+The purpose of a computer program is to tell other people what you want the computer to do. -- Donald Knuth
+\end{quote}
+
+
+The purpose of formatting is to facilitate communication.  The formatting of code conveys information to the reader.
+
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Vertical Formatting}
+
+\begin{itemize}
+\item Newspaper metaphor
+\item Vertical openness between concepts
+\item Vertical density
+\item Vertical distance
+\item Vertical ordering
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Vertical Openness Between Concepts}
+
+
+Notice how vertical openness helps us locate concepts in the code more quickly.
+\begin{lstlisting}[language=Java]
+package fitnesse.wikitext.widgets;
+
+import java.util.regex.*;
+
+public class BoldWidget extends ParentWidget {
+  public static final String REGEXP = "'''.+?'''";
+  private static final Pattern pattern = Pattern.compile("'''(.+?)'''",
+    Pattern.MULTILINE + Pattern.DOTALL
+  );
+
+  public BoldWidget(ParentWidget parent, String text) throws Exception { 
+    super(parent);
+    Matcher match = pattern.matcher(text);
+    match.find();
+    addChildWidgets(match.group(1));
+  }
+}
+\end{lstlisting}
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Vertical Openness Between Concepts}
+
+
+If we leave out the blank lines:
+\vspace{-.05in}
+\begin{lstlisting}[language=Java]
+package fitnesse.wikitext.widgets;
+import java.util.regex.*;
+public class BoldWidget extends ParentWidget {
+  public static final String REGEXP = "'''.+?'''";
+  private static final Pattern pattern = Pattern.compile("'''(.+?)'''",
+    Pattern.MULTILINE + Pattern.DOTALL
+  );
+  public BoldWidget(ParentWidget parent, String text) throws Exception { 
+    super(parent);
+    Matcher match = pattern.matcher(text);
+    match.find();
+    addChildWidgets(match.group(1));
+  }
+}
+\end{lstlisting}
+\vspace{-.05in}
+\begin{itemize}
+\item It's harder to distinguish the package statement, the beginning and end of the imports, and the class declaration.
+\item It's harder to locate where the instance variables end and methods begin.
+\end{itemize}
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Vertical Density}
+
+\vspace{-.05in}
+Openness separates concepts. Density implies association. Consider:
+\vspace{-.25in}
+\begin{lstlisting}[language=Java]
+public class ReporterConfig {
+  /** The class name of the reporter listener */
+  private String m_className;
+
+  /** The properties of the reporter listener */
+  private List<Property> m_properties = new ArrayList<Property>();
+
+  public void addProperty(Property property) {
+    m_properties.add(property);
+  }
+\end{lstlisting}
+\vspace{-.05in}
+The vertical openness (and bad comments) misleads the reader.  Better to use closeness to convey relatedness:
+\vspace{-.05in}
+\begin{lstlisting}[language=Java]
+public class ReporterConfig {
+  private String m_className;
+  private List<Property> m_properties = new ArrayList<Property>();
+
+  public void addProperty(Property property) {
+    m_properties.add(property);
+  }
+}
+\end{lstlisting}
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Vertical Distance and Ordering}
+
+
+Concepts that are closely related should be vertically close to each other.
+\begin{itemize}
+\item Variables should be declared as close to their usage as possible.
+\item Instance variables should be declared at the top of the class.
+\item Dependent functions: callers should be above callees.
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Horizontal Openness and Density}
+
+\begin{itemize}
+\item Keep lines short.  Uncle Bob says 120, but he's wrong.  Keep your lines at 80 characters or fewer if possible (sometimes it is impossible, but very rarely).
+\item Put spaces around {\tt =} to accentuate the distinction between the LHS and RHS.
+\item Don't put spaces between method names and parens, or parens and paramter lists - they're closely related, so should be close.
+\item Use spaces to accentuate operator precedence, e.g., no space between unary operators and their operands, space between binary operators and their operands.
+\item Don't try to horizontally align lists of assignments -- it draws attention to the wrong thing and can be misleading, e.g., encouraging the reader to read down a column.
+\item Always indent scopes (classes, methods, blocks).
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Team Rules}
+
+\begin{itemize}
+\item Every team should agree on a coding standard and everyone should adhere to it.
+\item Don't modify a file just to change the formatting, but if you are modifying it anyway, go ahead and fix the formatting of the code you modify.
+\item Code formatting standards get religious.  My rule: make your code look like the language inventor's code.
+\item If the language you're using has a code convention (like Java's), use it!
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+
+% %------------------------------------------------------------------------
+% \begin{frame}[fragile]{}
+
+
+% \begin{lstlisting}[language=Java]
+
+% \end{lstlisting}
+
+% \begin{itemize}
+% \item
+% \end{itemize}
+
+
+% \end{frame}
+% %------------------------------------------------------------------------
+
+
+\end{document}

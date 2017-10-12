@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>CS 2340 - Project, Summer 2013</title>
+  <meta name="viewport" content="width=device-width">
+
+  <!-- syntax highlighting CSS -->
+  <link rel="stylesheet" href="/css/syntax.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/main.css">
+
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/navbar-fixed-top.css" rel="stylesheet">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+
+    </head>
+    <body>
+
+      <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">CS 2340</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="syllabus.html">Syllabus</a></li>
+              <li><a href="policies.html">Policies</a></li>
+              <li><a href="schedule.html">Schedule</a></li>
+              <li><a href="resources.html">Resources</a></li>
+              <li><a href="project.html">Project</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+
+      <div class="container">
+      <h1>CS 2340 Summer 2013 Project</h1>
+
+<div class="section" id="problem-description">
+<h1>Problem Description</h1>
+<p>You will write a game that is inspired by the classic board game <a class="reference external" href="http://en.wikipedia.org/wiki/Risk_%28game%29">Risk</a>.  I encourage you to come up with a creative variation on the <a class="reference external" href="http://en.wikipedia.org/wiki/Risk_%28game%29">Risk</a> theme, but you may also implement <a class="reference external" href="http://en.wikipedia.org/wiki/Risk_%28game%29">Risk</a> itself.  If you implement <a class="reference external" href="http://en.wikipedia.org/wiki/Risk_%28game%29">Risk</a>, it is your responsibility to either get permission from Hasbro, or make your repository private.</p>
+<div class="section" id="the-rules-of-risk">
+<h2>The Rules of Risk</h2>
+<p>For your reference, here's a rough outline of the rules of <a class="reference external" href="http://en.wikipedia.org/wiki/Risk_%28game%29">Risk</a>.</p>
+<p><a class="reference external" href="http://en.wikipedia.org/wiki/Risk_%28game%29">Risk</a> is a turn-based strategy game played by 2 - 6 players controlling armies on a board containing 42 territorries.  The object of the game is to conquer every territory on the board.</p>
+<div class="section" id="setup">
+<h3>Setup</h3>
+<p>Each player chooses a &quot;color&quot; and gets an initial allotment of armies of that color according to the number of players:</p>
+<ul class="simple">
+<li>With 3 players, each player gets 35 armies.</li>
+<li>With 4 players, each player gets 30 armies.</li>
+<li>With 5 players, each player gets 25 armies</li>
+<li>With 6 players, each player gets 20 armies.</li>
+</ul>
+</div>
+<div class="section" id="gameplay">
+<h3>Gameplay</h3>
+<p>On each turn a player does three things:</p>
+<ol class="arabic simple">
+<li>Receives additional armies based on the number of territories and continents the player controls</li>
+<li>Attacks other players' territories (optional).</li>
+<li>Fortifies a territory (optional).</li>
+</ol>
+<div class="section" id="receiving-additional-armies">
+<h4>Receiving Additional Armies</h4>
+<p>At the beginning of a player's turn the player receives:</p>
+<ul class="simple">
+<li>1 army for every 3 territories the player occupies, or 3 armies if the player occupies less than 9 territories,</li>
+<li>some number of armies for each continent the player occupies according to the following schedule:<ul>
+<li>Africa: 3</li>
+<li>Asia: 7</li>
+<li>Australia: 2</li>
+<li>Europe: 5</li>
+<li>North America: 5</li>
+<li>South America: 2</li>
+</ul>
+</li>
+</ul>
+<p>(There are also cards in <a class="reference external" href="http://en.wikipedia.org/wiki/Risk_%28game%29">Risk</a>, but we'll ignore them to simplify the game for our purposes.)</p>
+</div>
+<div class="section" id="attacking">
+<h4>Attacking</h4>
+<p>A player can choose to attack a neighboring territory occupied by another player.  To attack a territory, the attacking territory must have at least one more army than the defending territory, and the territories must be adjacent.  The attack proceeds as follows:</p>
+<ul class="simple">
+<li>The attacker rolls up to 3 red dice.  The attacker must have at least one more army than dice being rolled (can't risk every last army).</li>
+<li>The defender rols up to 2 white dice.  The defender must have at least as many armies as dice being rolled (can risk every last army).</li>
+<li>Both attacker an defender sort their rolled dice in descending order.<ul>
+<li>The first die for the atttacker is compared to the first die of the defender, second die is compared to second die, and so on.</li>
+<li>Ties go to defender.</li>
+<li>For both attacker and defender, each die comparison loss results in the loss of one army.</li>
+</ul>
+</li>
+<li>The attacker may continue the attack as long as enough armies remain, and may attack form any territory to any adjacent territory.</li>
+<li>When all the defenders armies are vanquished, the attacker must move at least as many armies as dice were rolled into the newly conquered territory to occupy it.</li>
+</ul>
+</div>
+<div class="section" id="fortifying">
+<h4>Fortifying</h4>
+<p>At the end of a player's turn, the player may move armies from one territory to an adjacent territory, leaving behind at least one army (each territory must be occupied by at least one army).</p>
+</div>
+</div>
+</div>
+<div class="section" id="winning">
+<h2>Winning!</h2>
+<p>A player loses by having every army vanquished, thus occupying no territorries on the board.  A player wins by occupying every territory on the board.</p>
+</div>
+</div>
+<div class="section" id="software-requirements">
+
+
+<h1>Software Requirements</h1>
+<div class="section" id="definitions-acronyms-and-abgreviations">
+
+<h2>Definitions, Acronyms, and Abgreviations</h2>
+<ul class="simple">
+<li>Player: a single user who is participating in a game.</li>
+<li>Game: an episode that starts with players registering as participants in the game, proceeds through initial game setup, and as many rounds of turns as is necessary for one player to win according to the rules of the game.</li>
+<li>Army: an discrete unit of measure of attacking or defending force.  A metaphor meant to invoke physical armies in human militaries.</li>
+<li>Territory: a geographical or metaphorical region distinct from other regions.</li>
+<li>Occupy: have at least one army on a territory.</li>
+<li>Attack: apply force with some number of armies against some number of opposing armies resulting in the loss of some number of attacking and/or defendig armies.</li>
+</ul>
+</div>
+<div class="section" id="overall-description">
+<h2>Overall Description</h2>
+<p>The software will implement the (simplified) game of <a class="reference external" href="http://en.wikipedia.org/wiki/Risk_%28game%29">Risk</a> described above in a web-based system.  Each user of the software will control one or more players, and each user will use the same computer in a single browser window.  Players are individually identified.  Users are not individually identified.</p>
+<div class="section" id="user-characteristics">
+<h3>User Characteristics</h3>
+<p>Users of the system will be comfortable using interactive browser-based software, be able to read English language text, and understand simple diagrams and pictures as might be found in popular magazines or newspapers.</p>
+</div>
+<div class="section" id="constraints">
+<h3>Constraints</h3>
+<ul class="simple">
+<li>The user interface must run in a web browser.</li>
+<li>The game logic must be implemented in Java servlets running in a Tomcat 7.x servlet container.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="specific-requirements">
+<h2>Specific Requirements</h2>
+<p>Note that these requirements are not comprehensive and are written using terminology from <a class="reference external" href="http://en.wikipedia.org/wiki/Risk_%28game%29">Risk</a>.  You may add your own requirements and substitute your own game concepts and rules as long as the game has the following characteristics:</p>
+<ul class="simple">
+<li>3- 6 players.</li>
+<li>Turn-based strategy game.</li>
+<li>A concept of &quot;territories.&quot;</li>
+<li>A concept of &quot;armies&quot; that occupy territories.</li>
+<li>&quot;Attacks&quot; whose outcomes are decided by a combination of chance and number or strength of &quot;armies&quot; involved in the attack and defense.</li>
+<li>A concept of loss by attrition.</li>
+<li>A concept of victory by expanding occupation of territories.</li>
+</ul>
+<div class="section" id="functional-requirements">
+<h3>Functional Requirements</h3>
+<div class="section" id="id1">
+<h4>Setup</h4>
+<ul class="simple" id="r1">
+<li>R1: The software shall provide a means for 3-6 players to join a game by entering their names.</li>
+</ul>
+<ul class="simple" id="r2">
+<li>R2: The software shall randomly select an order for turns among the players in a game and display this order to the users.  This turn order will remain in effect throughout the game.</li>
+</ul>
+<ul class="simple" id="r3">
+<li>R3: The software shall assign to each player some number of &quot;armies&quot; at the beginning of the game.</li>
+</ul>
+<ul class="simple" id="r4">
+<li>R4: The software shall display to the users all the territories on the &quot;board&quot; throughout the game.</li>
+</ul>
+<ul class="simple" id="r5">
+<li>R5: The software shall display to the users all the armies on all the territories on the board throughout the game.</li>
+</ul>
+<ul class="simple" id="r6">
+<li>R6: The software shall provide a means for each player to choose, or be assigned initial territories occupied by the armies given in the player's initial allottment (R3).</li>
+</ul>
+</div>
+<div class="section" id="play">
+<h4>Play</h4>
+<ul id="r7">
+<li><p class="first">R7: The software shall provide notification of each player's turn according to the order determined in setup (R2).</p>
+<p>For each player's turn:</p>
+<ul class="simple" id="r8">
+<li>R8: At the beginning of a player's turn, the software shall calculate the number of armies to be added to the player's total and display this number to the player.</li>
+</ul>
+<ul class="simple" id="r9">
+<li>R9: The software shall provide a means for the player to place the armies received on a turn on territories of the player's choosing, provided the player already occupies the territories.</li>
+</ul>
+<ul class="simple" id="r10">
+<li>R10: The software shall require the player to place all of the newly received armies before proceeding with the turn.</li>
+</ul>
+<ul id="r11">
+<li><p class="first">R11: The software shall provide a means for the player to choose to attack.</p>
+<p>If the player chooses to attack:</p>
+<ul class="simple" id="r12">
+<li>R12: The software shall provide a means for the player to choose which territory to attack from, and which territory to attack.</li>
+</ul>
+<ul class="simple" id="r13">
+<li>R13: The software shall provide a means for the attacking player to choose how many dice to roll in the attack, up to 3.  The software should not allow the player to choose to roll a number of dice that is more than one less than the number of armies on the attacking territory.</li>
+</ul>
+<ul class="simple" id="r14">
+<li>R14: The software shall provide a means for the defending player to choose how many dice to roll, up to 2.  The software should not allow the defending player to choose to roll a number of dice greater thatn the number of armies on the defending territory.</li>
+</ul>
+<ul class="simple" id="r15">
+<li>R15: After the attacking and defending players have both chosen their numbers of dice to roll, the software shall &quot;roll&quot; the dice, show the results to the users, calculate the resulting numbers of armies on each territory, and display the resulting numbers of armies on the respective territories.</li>
+</ul>
+<ul class="simple" id="r16">
+<li>R16: The software shall provide a means for the attacking player to choose to continue to attack.</li>
+</ul>
+</li>
+</ul>
+<ul class="simple" id="r17">
+<li>R17: The software shall provide a means for the player to fortify a territory with armies from an adjacent territory.  At least one army must remain on all territories.</li>
+</ul>
+<ul class="simple" id="r18">
+<li>R18: If the last attack resulted in the attacking player occupying every territory on the board, the software shall recognize that the gae is over, report the attacking player as the winner, and offer to start a new game.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="milestones">
+<h1>Milestones</h1>
+<ul class="simple">
+<li><a class="reference internal" href="#m1">M1</a>: Game Initialization, R1 - R3</li>
+<li><a class="reference internal" href="#m2">M2</a>: Board Setup, R4 - R6</li>
+<li><a class="reference internal" href="#m3">M3</a>: Turn Setup, R7 - R10</li>
+<li><a class="reference internal" href="#m4">M4</a>: Attacks, R11 - R16</li>
+<li><a class="reference internal" href="#m5">M5</a>: Turn/Game Closeout, R17 - R18</li>
+</ul>
+</div>
+<div class="section" id="grading">
+<h1>Grading</h1>
+<div class="section" id="individual-part">
+<h2>Individual Part</h2>
+<p>Each team member will receive a score, on a 100 point scale, based on both group and individual work.  At the end of each milestone, each team member will be scored individually on the following items:</p>
+<ul class="simple">
+<li>(20 pts) <tt class="docutils literal">git pull</tt> gets individual's master and topic branches for the milestone (not necessarily the integration manager's master branch).  <tt class="docutils literal">git branch <span class="pre">--list</span></tt> lists branches.</li>
+<li>(20 pts) <tt class="docutils literal">ant clean deploy</tt> runs successfully</li>
+<li>(10 pts) after <tt class="docutils literal">ant clean deploy</tt> and <tt class="docutils literal">$CATALINA_HOME/bin/startup.sh</tt> web application runs in browser at <a class="reference external" href="http://localhost:8080">http://localhost:8080</a>/${app.name}``</li>
+</ul>
+<p>These individually scored items ensure that each team member is keeping up with the project.  If an individual team member does not keep up at all, then their max possible score for a milestone would be 50 out of 100.</p>
+</div>
+<div class="section" id="team-part">
+<h2>Team Part</h2>
+<p>For each milestone, each team will be scored as a group based on the items listed below for each iteration.  Each team member gets the same number of points for these items.</p>
+</div>
+<div class="section" id="m1-game-initialization-r1-r3">
+<span id="m1"></span><h2>M1: Game Initialization, R1 - R3</h2>
+<ul class="simple">
+<li>(10 pts) Clean code</li>
+<li>(10 pts) <a class="reference internal" href="#r1">R1</a>: 3-6 uniquely identifiable players</li>
+<li>(10 pts) <a class="reference internal" href="#r2">R2</a>: Random turn order</li>
+<li>(10 pts) <a class="reference internal" href="#r3">R3</a>: Assigning initial allottment of armies</li>
+<li>(10 pts) M1 tag present in integration manager's repo</li>
+</ul>
+</div>
+<div class="section" id="m2-board-setup-r4-r6">
+<span id="m2"></span><h2>M2: Board Setup, R4 - R6</h2>
+<ul class="simple">
+<li>(10 pts) Clean code</li>
+<li>(10 pts) Regression (R1-R3 features still work)</li>
+<li>(10 pts) <a class="reference internal" href="#r4">R4</a>: All territories displayed</li>
+<li>(10 pts) <a class="reference internal" href="#r5">R5</a>: All armies on each territory are displayed</li>
+<li>(10 pts) <a class="reference internal" href="#r6">R6</a>: Players can choose or have their armies assigned to territories</li>
+</ul>
+</div>
+<div class="section" id="m3-turn-setup-r7-r10">
+<span id="m3"></span><h2>M3: Turn Setup, R7 - R10</h2>
+<ul class="simple">
+<li>(5 pts) Clean code</li>
+<li>(5 pts) Regression (R1-R6 features still work)</li>
+<li>(5 pts) Proof of group design process</li>
+<li>(10 pts) <a class="reference internal" href="#r7">R7</a>: Notify players of turns in correct order</li>
+<li>(10 pts) <a class="reference internal" href="#r8">R8</a>: Correctly calculate new additional armies at beginning of turn</li>
+<li>(10 pts) <a class="reference internal" href="#r9">R9</a>: Allow player to place new armies</li>
+<li>(5 pts) <a class="reference internal" href="#r10">R10</a>: Require player to place new armies before proceeding with turn</li>
+</ul>
+</div>
+<div class="section" id="m4-attacks-r11-r16">
+<span id="m4"></span><h2>M4: Attacks, R11 - R16</h2>
+<ul class="simple">
+<li>(5 pts) Clean code</li>
+<li>(5 pts) Regression (R1-R10 features still work)</li>
+<li>(5 pts) Proof of group design process</li>
+<li>(5 pts) <a class="reference internal" href="#r11">R11</a>: Allow player to choose to attack after placing new armies</li>
+<li>(5 pts) <a class="reference internal" href="#r12">R12</a>: Allow player to choose attacking territory and adjacent target</li>
+<li>(5 pts) <a class="reference internal" href="#r13">R13</a>: Allow attacker to correctly choose number of attacking dice</li>
+<li>(5 pts) <a class="reference internal" href="#r14">R14</a>: Allow defender to correctly choose number of defending dice</li>
+<li>(10 pts) <a class="reference internal" href="#r15">R15</a>: Roll dice, show players, calculate and display resulting remaining armies on attacking and defending territories</li>
+<li>(5 pts) <a class="reference internal" href="#r16">R16</a>: Allow player to choose to continue to attack</li>
+</ul>
+</div>
+<div class="section" id="m5-turn-game-closeout-r17-r18">
+<span id="m5"></span><h2>M5: Turn/Game Closeout, R17 - R18</h2>
+<ul class="simple">
+<li>(5 pts) Clean code</li>
+<li>(5 pts) Regression (R1-R16 features still work)</li>
+<li>(5 pts) Proof of group design process</li>
+<li>(10 pts) <a class="reference internal" href="#r17">R17</a>: Allow player to fortify one territory</li>
+<li>(10 pts) <a class="reference internal" href="#r18">R18</a>: Recognize end of game and report winner</li>
+<li>(10 pts) UI design is reasonable</li>
+<li>(10 pts) UI design is excellent</li>
+</ul>
+</div>
+</div>
+
+      </div>
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  </body>
+  </html>

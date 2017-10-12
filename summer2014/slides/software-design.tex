@@ -1,0 +1,323 @@
+\documentclass{beamer}
+
+\newcommand{\course}{CS 2340 Objects and Design}
+\newcommand{\lesson}{Software Design}
+\newcommand{\code}{http://www.cc.gatech.edu/~simpkins/teaching/gatech/cs2340/code}
+
+\author[Chris Simpkins] 
+{Christopher Simpkins \\\texttt{chris.simpkins@gatech.edu}}
+\institute[Georgia Tech] % (optional, but mostly needed)
+
+\date[CS 1331]{}
+
+\include{beamer-common}
+
+% \beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Design}
+
+
+Design (noun)
+\begin{quote}
+A plan or protocol for carrying out or accomplishing something. -- Webster's Dictionary
+\end{quote}
+
+Engineering design (verb):
+\begin{quote}
+A systematic, intelligent process in which designers generate, evaluate and specify designs for devices, systems, or processes whose form(s) and function(s) acheive clients' objectives and users' needs while satisfying a specified set of constraints. -- Dym and Little, quoted in Carlos Otero, Software Engineering Design
+\end{quote}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Fundamental Design Principles -- Otero}
+
+\begin{itemize}
+\item Modularization
+\item Abstraction
+\item Encapsulation
+\item Coupling and Cohesion
+\item Separation of interface and implementation
+\item Suficiency and completeness
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Object Design -- Wirfs-Brock}
+
+
+\begin{itemize}
+\item Design driven by roles and responsibilities
+\item Write story about system, identify themes and abstractions, identify candidate roles/classes that support themes
+\item When candidates identified, model reponsibilities and collaborations
+\item Exploratory design with CRC cards (candidates, responsibilities, collaborations)
+\item Object roles often fit into these steriotypes:
+  \begin{itemize}
+  \item Informatoin holder -- knows and provides information
+  \item Structurer -- maintains relationships between objects and information about those relationships
+  \item Service provider -- performs work and, in general, offers computing services
+  \item Coordinator -- reacts to events by delegating tasks to others
+  \item Controller -- makes decisions and closely directs others' actions
+  \item Interfacer -- transofrms information and requests between idstinct parts of the system
+  \end{itemize}
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Agile Design -- Martin}
+
+
+Fundamental principle of agile design:
+\begin{quote}
+The code is the design. -- Jack Reeves, 1992
+\end{quote}
+
+Design Smells
+\begin{itemize}
+\item Rigidity -- system is too hard to change becuase change in one place forces changes in many other places
+\item Fragility -- changes break things that are conceptually unrelated
+\item Immobility -- too hard to resuse components in other systems
+\item Viscosity -- hard to do it right, easy to do it wrong
+\item Needless Complexity -- infrastructure with no direct benefit
+\item Needless Repetition -- repeated structures that could be unified under a single abstraction
+\item Opacity -- hard to read and understand
+\end{itemize}
+Design smells avoided or fixed by applying design principles like SRP, OCP ...
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Levels of Design}
+
+\begin{itemize}
+\item High-level: system architecture
+\item Detailed Design
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{System Architectures}
+
+\begin{itemize}
+\item Stand-alone
+\item Client-server
+\item N-tier
+\item Service-oriented architecture
+\end{itemize}
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%% %------------------------------------------------------------------------
+%% \begin{frame}[fragile]{Client-server Architecture}
+
+
+%% \begin{lstlisting}[language=Java]
+
+%% \end{lstlisting}
+
+%% \begin{itemize}
+%% \item
+%% \end{itemize}
+
+
+%% \end{frame}
+%% %------------------------------------------------------------------------
+
+%% %------------------------------------------------------------------------
+%% \begin{frame}[fragile]{Service-oriented Architecture}
+
+
+%% \begin{lstlisting}[language=Java]
+
+%% \end{lstlisting}
+
+%% \begin{itemize}
+%% \item
+%% \end{itemize}
+
+
+%% \end{frame}
+%% %------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Detailed Design}
+
+
+\begin{itemize}
+\item Classes and methods
+\item Data interchange formats (XML schema, JSON)
+\item Entity-relationship models, database schema
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Unified Modeling Langauge (UML)}
+
+
+A standardized diagrammatic language for communicating OO designs in a language-independent way.  Very rich, but for now focus on:
+\begin{itemize}
+\item use cases,
+\item domain model (classes and associations),
+\item packages, and
+\item sequence digrams.
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Use Cases}
+
+
+\begin{center}
+\includegraphics[width=3in]{use-case-create-todo.png}
+\end{center}
+
+A use case describes some user's interaction with the system.  Most use cases contain:
+\begin{itemize}
+\item an {\it actor}, here simply ``User,''
+\item a {\it use case}, here ``Create new todo,'' and
+\item (optionally) a {\it system boundary}, here ``tomcat-todo.''
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Class Diagrams}
+
+
+\begin{center}
+\includegraphics[width=2in]{uml-class-todo.png}
+\end{center}
+\vspace{-.25in}
+Class diagrams contain
+\begin{itemize}
+\item a {\it class name}, here ``Todo,''
+\item {\it instance variables}, here ``title'' and ``task''.  Note that types are given after names, as in ``: String''.  The ``-'' means private.
+\item {\it methods}.  The ``+'' means public. (``\#'' means protected, but we have no protected members in this example.)
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Associations}
+
+
+\begin{center}
+\includegraphics[width=3in]{uml-association-todo.png}
+\end{center}
+
+\begin{itemize}
+\item {\it TodoDb} is italicized, meaning it is abstract.  The ``<<interface>>'' further means that it is an interface.
+\item {\tt TodoDbHashMapImpl} is a subtype of {\tt TodoDb}.
+\item {\tt TodoDbHashMapImpl} is {\it composed} of a {\tt HashMap<K,V>}.
+\item {\tt HashMap} is a paramterized type with type parameters K and V.
+\item {\tt TodoDb} aggregates {\tt Todo} objects.
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Packages}
+
+
+\begin{center}
+\includegraphics[width=3in]{uml-package-todo.png}
+\end{center}
+
+\begin{itemize}
+\item The tab shows the package name.
+\item The main box lists classes and interfaces using the same +, -, and \# visibility modifiers used for members in class diagrams.
+\item An alternative form is to simply put the package name in the main box and not list the members of the package.
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Sequence Diagrams}
+
+
+\begin{center}
+\includegraphics[width=4in]{uml-sequence-create-todo.png}
+\end{center}
+
+\begin{itemize}
+\item The top rectangles represent objects (instances of types/classes).
+\item Time progresses vertically downward.
+\item The dashed lines represent object lifetimes.
+\item The narrow vertical boxes represent operations of the objects (here, only create on the todoDb object).
+\item Arrows are ``messages'' or method calls and returns.
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Closing Thoughts}
+
+
+\begin{itemize}
+\item Design is an art born of empirical science and intuitive experience
+\item Practical experience and formal studies of software systems have produced design principles and guidelines
+\item A design is never ``perfect''
+\item Design involves tradeoffs -- balancing constraints means prioritizing
+\end{itemize}
+We don't expect your projects to be perfectly designed, or even well-designed.  But we want you to apply design principles and processes and learn from your experience.
+
+\end{frame}
+%------------------------------------------------------------------------
+
+% %------------------------------------------------------------------------
+% \begin{frame}[fragile]{}
+
+
+% \begin{lstlisting}[language=Java]
+
+% \end{lstlisting}
+
+% \begin{itemize}
+% \item
+% \end{itemize}
+
+
+% \end{frame}
+% %------------------------------------------------------------------------
+
+
+\end{document}

@@ -1,0 +1,201 @@
+\documentclass{beamer}
+
+\newcommand{\course}{CS 2340 Objects and Design}
+\newcommand{\lesson}{Clean Tests}
+\newcommand{\code}{http://www.cc.gatech.edu/~simpkins/teaching/gatech/cs2340/code}
+
+\author[Chris Simpkins] 
+{Christopher Simpkins \\\texttt{chris.simpkins@gatech.edu}}
+\institute[Georgia Tech] % (optional, but mostly needed)
+
+\date[CS 1331]{}
+
+\include{beamer-common}
+
+% \beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Test-Driven Development}
+
+\begin{itemize}
+\item {\bf First Law} You may not write production code until you have written a failing unit test.
+\item {\bf Second Law} You may not write more of a unit test than is sufficient to fail, and not compiling is failing.
+\item {\bf Third Law} You may not write more production code than is sufficient to pass the currently failing test.
+\end{itemize}
+
+Consequence: tests and code are written together in an interleaved fashion.\\
+\vspace{.1in}
+Attitude: tests must be maintained to the same high standards as production code.
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Clean Tests}
+
+\begin{lstlisting}[language=Java]
+public void testGetPageHieratchyAsXml() throws Exception {
+  crawler.addPage(root, PathParser.parse("PageOne"));
+  crawler.addPage(root, PathParser.parse("PageOne.ChildOne"));
+  crawler.addPage(root, PathParser.parse("PageTwo"));
+  request.setResource("root");
+  request.addInput("type", "pages");
+  Responder responder = new SerializedPageResponder();
+  SimpleResponse response = 
+    (SimpleResponse) responder.makeResponse(
+      new FitNesseContext(root), request);
+  String xml = response.getContent();
+  assertEquals("text/xml", response.getContentType());
+  assertSubString("<name>PageOne</name>", xml);
+  assertSubString("<name>PageTwo</name>", xml);
+  assertSubString("<name>ChildOne</name>", xml);
+}
+...
+\end{lstlisting}
+Imagine several test methods written with this level of detail and duplication.
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Domain-Specific Testing Language}
+
+
+The test methods of the previous slide follow a build-operate-check pattern.  This pattern can be represented by a domain-specific testing API:
+\begin{lstlisting}[language=Java]
+public void testGetPageHierarchyAsXml() throws Exception { 
+  makePages("PageOne", "PageOne.ChildOne", "PageTwo");
+  submitRequest("root", "type:pages");
+  assertResponseIsXML();
+  assertResponseContains(
+    "<name>PageOne</name>", "<name>PageTwo</name>", "<name>ChildOne</name>" );
+}
+\end{lstlisting}
+
+\begin{itemize}
+\item Each of the test methods use helper methods developed specifically for tests: makePages (build), submitRequest (operate), and asserts (check).
+\item Testing API helps us write clean tests: clear, simple, and densely expressed.
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{One Assert per Test}
+
+
+\begin{lstlisting}[language=Java]
+public void testGetPageHierarchyAsXml() throws Exception {
+  givenPages("PageOne", "PageOne.ChildOne", "PageTwo");
+  whenRequestIsIssued("root", "type:pages");
+  thenResponseShouldBeXML(); 
+}
+
+public void testGetPageHierarchyHasRightTags() throws Exception {
+  givenPages("PageOne", "PageOne.ChildOne", "PageTwo");
+  whenRequestIsIssued("root", "type:pages");
+  thenResponseShouldContain(
+    "<na  me>PageOne</name>", "<name>PageTwo</name>", "<name>ChildOne</name>"
+  );
+}
+\end{lstlisting}
+
+Applying the one-assert-per-test rule leads to less clean code.  We prefer a one-concept-per-test rule.
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{One Concept per Test}
+
+\begin{lstlisting}[language=Java]
+public void testGetPageHierarchyAsXml() throws Exception {
+  makePages("PageOne", "PageOne.ChildOne", "PageTwo");
+  submitRequest("root", "type:pages");
+  assertResponseIsXML(); assertResponseContains(
+    "<name>PageOne</name>", "<name>PageTwo</name>", "<name>ChildOne</name>" );
+}
+\end{lstlisting}
+
+The one-concept-per-test rule, as hown here, leads to cleaner code (less duplication, clearer intent).
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{F.I.R.S.T.}
+
+
+Five additional rules for clean tests:  Test should be fast, indepedent, repeatable, self-validating, and timely.
+
+\begin{itemize}
+
+\item {\bf Fast} Tests should be fast. They should run quickly. When tests run slow, you won't want to run them frequently. If you don't run them frequently, you won't find problems early enough to fix them easily. You won't feel as free to clean up the code. Eventually the code will begin to rot.
+
+\item {\bf Independent} Tests should not depend on each other. One test should not set up the condi- tions for the next test. You should be able to run each test independently and run the tests in any order you like. When tests depend on each other, then the first one to fail causes a cascade of downstream failures, making diagnosis difficult and hiding downstream defects.
+
+\end{itemize}
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{F.I.R.S.T}
+
+
+\begin{itemize}
+
+\item {\bf Repeatable} Tests should be repeatable in any environment. You should be able to run the tests in the production environment, in the QA environment, and on your laptop while riding home on the train without a network. If your tests aren't repeatable in any environment, then you'll always have an excuse for why they fail. You'll also find yourself unable to run the tests when the environment isn't available.
+
+\item {\bf Self-Validating} The tests should have a boolean output. Either they pass or fail. You should not have to read through a log file to tell whether the tests pass. You should not have to manually compare two different text files to see whether the tests pass. If the tests aren't self-validating, then failure can become subjective and running the tests can require a long manual evaluation.
+
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{F.I.R.S.T.}
+
+
+And finally:
+
+\begin{itemize}
+\item {\bf Timely} The tests need to be written in a timely fashion. Unit tests should be written just before the production code that makes them pass. If you write tests after the production code, then you may find the production code to be hard to test. You may decide that some production code is too hard to test. You may not design the production code to be testable.
+\end{itemize}
+
+JUnit embodies these rules.  Use Junit.
+
+\end{frame}
+%------------------------------------------------------------------------
+
+% %------------------------------------------------------------------------
+% \begin{frame}[fragile]{}
+
+
+% \begin{lstlisting}[language=Java]
+
+% \end{lstlisting}
+
+% \begin{itemize}
+% \item
+% \end{itemize}
+
+
+% \end{frame}
+% %------------------------------------------------------------------------
+
+
+\end{document}

@@ -1,0 +1,341 @@
+\documentclass{beamer}
+
+\newcommand{\course}{CS 2340 Objects and Design}
+\newcommand{\lesson}{Clean Functions}
+\newcommand{\code}{http://www.cc.gatech.edu/~simpkins/teaching/gatech/cs2340/code}
+
+\author[Chris Simpkins] 
+{Christopher Simpkins \\\texttt{chris.simpkins@gatech.edu}}
+\institute[Georgia Tech] % (optional, but mostly needed)
+
+\date[CS 1331]{}
+
+\include{beamer-common}
+
+% \beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Functions Should be Small and Do one Thing Only}
+
+
+\begin{itemize}
+\item The first rule of functions: functions should be small.
+\item The second rule of functions: functions should be small.
+\end{itemize}
+How small?  A few lines, 5 or 10.  ``A screen-full'' is no longer meaningful with large monitors and small fonts.
+
+Some signs a function is doing too much:
+\begin{itemize}
+\item Many parameters.  ``If you have a procedure with ten parameters, you probably missed some.'' -- Perlis
+\item ``Sections'' within a function, often delimited by blank lines.
+\item Deeply nested logic.
+\end{itemize}
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Writing Functions that Do One Thing}
+
+
+\begin{itemize}
+\item One level of abstraction per function.
+\begin{itemize}
+\item A function that implements a higher-level algorithm should call helper functions to execute the steps of the algorithm.
+\end{itemize}
+\item Write code using the stepdown rule.
+\begin{itemize}
+\item Code should read like a narrative from top to bottom.
+\item Read a higher level function to get the big picture, the functions below it to get the details.
+\end{itemize}
+
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Switch Statements}
+
+
+Switch statements do more than one thing by design.  Consider:
+\begin{lstlisting}[language=Java]
+public class Payroll
+  public Money calculatePay(Employee e) throws InvalidEmployeeType {
+    switch (e.type) {
+      case COMMISSIONED:
+        return calculateCommissionedPay(e);
+      case HOURLY:
+        return calculateHourlyPay(e);
+      case SALARIED:
+        return calculateSalariedPay(e);
+      default:
+        throw new InvalidEmployeeType(e.type); }
+  }
+}
+\end{lstlisting}
+
+\begin{itemize}
+\item This class violates Single Responsibility Principle because there are multiple reasons to change it (payroll, employee).
+\item This class violates the Open Closed Principle becuase extending the system to handle new types of employees requires changing the code in Payroll.
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Replacing {\tt switch} Statements with Polymorphism}
+
+
+\begin{lstlisting}[language=Java]
+public abstract class Employee {
+  public abstract boolean isPayday();
+  public abstract Money calculatePay();
+  public abstract void deliverPay(Money pay);
+}
+public class EmployeeFactory {
+  public Employee makeEmployee(EmployeeRecord r) throws InvalidEmployeeType { 
+    switch (r.type) {
+      case HOURLY:
+        return new HourlyEmployee(r);
+      case SALARIED:
+        return new SalariedEmploye(r);
+      default:
+        throw new InvalidEmployeeType(r.type);
+    }
+  }
+}
+\end{lstlisting}
+
+\begin{itemize}
+\item When we add a new Employee class, we only need to change the factory.
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Function Parameters}
+
+
+Common monadic (one argument) forms
+\begin{itemize}
+\item Predicate functions: {\tt boolean fileExists(``MyFile'')}
+\item Transformations: {\tt InputStream fileOpen(``MyFile'')}
+\item Events: {\tt void passwordAttemptFailedNtimes(int attempts)}
+\end{itemize}
+
+Dyadic, triadic, and higher numbers of function arguments are much harder to get right.  Even one argument functions are problematic.  Consider flag argumets:
+\begin{itemize}
+\item Instead of {\tt render(boolean isSuite)}, a call to which would look like {\tt render(true)}, 
+\item write two methods, like {\tt renderForSuite()} and {\tt renderForSingleTest()}
+\end{itemize}
+
+Keep in mind that in OOP, every instance method call has an implicit argument: the object on which it is invoked.
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Minimizing the Number of Arguments}
+
+
+Use objects.  Instead of
+\begin{lstlisting}[language=Java]
+public void doSomethingWithEmployee(String name, double pay, Date hireDate)
+\end{lstlisting}
+Represent emplyees with a class:
+\begin{lstlisting}[language=Java]
+public void doSomethingWith(Employee employee)
+\end{lstlisting}
+
+Use argument lists
+\begin{lstlisting}[language=Java]
+public int max(int ... numbers)
+public String format(String format, Object... args)
+\end{lstlisting}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Have no Side Effects}
+
+
+The checkPassword method below:
+\begin{lstlisting}[language=Java]
+public class UserValidator {
+  private Cryptographer cryptographer;
+  public boolean checkPassword(String userName, String password) {
+    User user =  UserGateway.findByName(userName);
+    if (user != User.NULL) {
+      String codedPhrase = user.getPhraseEncodedByPassword();
+      String phrase = cryptographer.decrypt(codedPhrase, password);
+      if ("Valid Password".equals(phrase)) {
+        Session.initialize();
+        return true; }
+    }
+    return false; }
+}
+\end{lstlisting}
+Has the side effect of initializing the session.
+\begin{itemize}
+\item Might erase an existing session, or
+\item might create temporal coupling: can only check password for user that doesn't have an existing session.
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Output Arguments}
+
+
+Arguments are naturally interpreted as inputs.  Avoid using them as outputs, as in:
+\begin{lstlisting}[language=Java]
+public void appendFooter(StringBuffer report)
+\end{lstlisting}
+A call to this method would look like {\tt appendFooter(s);} and you'd need to read the method signature to figure out what was going on.  Better to have a function return a value or mutate an object:
+\begin{lstlisting}[language=Java]
+report.appendFooter();
+\end{lstlisting}
+or
+\begin{lstlisting}[language=Java]
+String footer = generateFooter();
+report.appendFooter(footer);
+\end{lstlisting}
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Command Query Separation}
+
+
+Consider:
+\begin{lstlisting}[language=Java]
+public boolean set(String attribute, String value);
+\end{lstlisting}
+We're setting values and querying ... something, leading to very bad idioms like
+\begin{lstlisting}[language=Java]
+if (set("username", "unclebob"))...
+\end{lstlisting}
+Better to separate commands from queries:
+\begin{lstlisting}[language=Java]
+if (attributeExists("username")) {
+  setAttribute("username", "unclebob");
+  ...
+}
+\end{lstlisting}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Prefer Exceptions to Error Codes}
+
+\vspace{-.06in}
+Returning error codes forces client programmer to mix error handling with main logic (and often leads to ugly nested code):
+\vspace{-.05in}
+\begin{lstlisting}[language=Java]
+if (deletePage(page) == E_OK) {
+  if (registry.deleteReference(page.name) == E_OK) {
+    if (configKeys.deleteKey(page.name.makeKey()) == E_OK){
+      logger.log("page deleted");
+    } else {
+      logger.log("configKey not deleted");
+    }
+  } else {
+    logger.log("deleteReference from registry failed"); }
+} else {
+  logger.log("delete failed"); return E_ERROR;
+}
+\end{lstlisting}
+\vspace{-.06in}
+Let language features help you:
+\vspace{-.05in}
+\begin{lstlisting}[language=Java]
+try {
+  deletePage(page);
+  registry.deleteReference(page.name);
+  configKeys.deleteKey(page.name.makeKey());
+} catch (Exception e) {
+  logger.log(e.getMessage());
+}
+\end{lstlisting}
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{Extract Try/Catch Blocks}
+
+
+You can make your code even clearer by extracting try/catch statements into functoins of their own:
+\begin{lstlisting}[language=Java]
+public void delete(Page page) {
+  try {
+    deletePageAndAllReferences(page); }
+  catch (Exception e) {
+    logError(e);
+  }
+}
+private void deletePageAndAllReferences(Page page) throws Exception {
+  deletePage(page);
+  registry.deleteReference(page.name);
+  configKeys.deleteKey(page.name.makeKey());
+}
+private void logError(Exception e) {
+  logger.log(e.getMessage());
+}
+\end{lstlisting}
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+\begin{frame}[fragile]{A Few More Function Writing Tips}
+
+
+\begin{itemize}
+\item Don't repeat yourself.  Extract oft-used code into functions.
+\item Don't shackle yourself with structured programming.  Sometimes multiple returns or even -- gasp! -- {\tt break} and {\tt continue} lead to clearer code. 
+\end{itemize}
+
+
+
+\end{frame}
+%------------------------------------------------------------------------
+
+
+% %------------------------------------------------------------------------
+% \begin{frame}[fragile]{}
+
+
+% \begin{lstlisting}[language=Java]
+
+% \end{lstlisting}
+
+% \begin{itemize}
+% \item
+% \end{itemize}
+
+
+% \end{frame}
+% %------------------------------------------------------------------------
+
+
+\end{document}

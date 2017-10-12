@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.10: http://docutils.sourceforge.net/" />
+<title>Java 7 on Mac OS X</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id$
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { /* line numbers */
+  color: grey;
+}
+
+.code {
+  background-color: #eeeeee
+}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="java-7-on-mac-os-x">
+<h1 class="title">Java 7 on Mac OS X</h1>
+
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Note: I'm generally a fan of Apple and own many of their products.  My primary computer is a MacBook Pro, which I wouldn't trade for anything.  But Apple has really screwed this one up.</p>
+</div>
+<p>Apple has hurt its users who develop in Java by declaring an end to Java support but continuing to update Java 6 using its automatic update program.  This means that installing Oracle Java 7 JDK is a hassle to begin with, and if you blindly accept all of Apple's software updates (that is, you don't remember to uncheck Java updates when they appear)  you'll have to re-do parts of your Java 7 installation from time to time because Apple's Java updates reset all the symlinks to point to its own Java 6.  In any case, here's what you need to do to install and use Java 7 on Mac OS X and fix Apples &quot;updates&quot; if they slip by you.  At the time of this writing the current Java 7 is update 17 (jdk1.7.0_17).</p>
+<div class="section" id="first-time-java-7-installation">
+<h1>First Time Java 7 Installation</h1>
+<p>Get the Java 7 JDK (not JRE) from here: <a class="reference external" href="http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html">http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html</a>.  You want the Mac OS X x64 download (I couldn't provide a direct link becuase the page I linked in the previous sentence requires you to accept a license agreement).  It's a .dmg (disk image) containing a package installer.  Double click the package installer, enter your password when prompted, and your new Java 7 JDK will be installed in a few minutes.  Kind of.  This step only places the JDK on your hard disk.  Now you have to set a few symlinks so that you can actually use it.</p>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">To understand the remaining steps you need to understand that Mac OS X is a Unix operating system, and you have to know a little Unix to get certain things done.  You may want to read some <a class="reference internal" href="#background">background</a> information first.</p>
+</div>
+</div>
+<div class="section" id="figuring-out-if-you-have-apple-s-java-6">
+<h1>Figuring Out if You Have Apple's Java 6</h1>
+<p>Apple installs its JDK in <tt class="docutils literal">/System/Library/Java/JavaVirtualMachines</tt>.  If you have Apple's JDK and the symlinks are set up for it, perhaps after you've followed these instructions but then allowed Apple's Software Update to install a Java update, you can find out with <tt class="docutils literal">java <span class="pre">-version</span></tt> or by seeing where the symlink at <tt class="docutils literal">usr/bin/java</tt> points.  If <tt class="docutils literal">java <span class="pre">-version</span></tt> prints something like &quot;Java 1.6&quot; (the important part being the &quot;1.6&quot;) or the symlink at <tt class="docutils literal">usr/bin/java</tt> points to <tt class="docutils literal">/System/Library/Java/JavaVirtualMachines</tt> (note that Apple installs under <tt class="docutils literal">/System/Library</tt>, Oracle installs under <tt class="docutils literal">/Library</tt>), then you need to follow the rest of these instructions.</p>
+<p>If you use an older version of Java, like Apple's Java 6 and try to write programs that use Java class files that were compiled with a newer version of Java you may see an error like this:</p>
+<pre class="code bash literal-block">
+warning: ./Location.class: major version 51 is newer than 50, the highest major version supported by this compiler.
+It is recommended that the compiler be upgraded.
+</pre>
+<p>This message means you're using Java 1.6 (version 50) with pre-compiled <tt class="docutils literal">.class</tt> files that were compiled with Java 1.7 (version 51).  In general, you can use the Java disassembler, <tt class="docutils literal">javap</tt> to find out which version of Java was used to compile a class:</p>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Note: the '$' character is the shell prompt.  In the example shell interactions in this guide, the commands you type will appear after a shell prompt.</p>
+</div>
+<pre class="code bash literal-block">
+<span class="nv">$ </span>javap -verbose Location.class | head
+Classfile /Users/chris/Downloads/PacmanSkeleton/Location.class
+  Last modified Mar 8, 2013; size 1241 bytes
+  MD5 checksum 2e22b98aa3c1fb2bb3a06e5cd4f2fd24
+  Compiled from <span class="s2">&quot;Location.java&quot;</span>
+public class Location
+  SourceFile: <span class="s2">&quot;Location.java&quot;</span>
+  minor version: 0
+  major version: 51
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+</pre>
+<p>Note that I piped the output of <tt class="docutils literal">javap <span class="pre">-verbose</span></tt> through <tt class="docutils literal">head</tt> because it prints a ton of information.</p>
+<div class="section" id="removing-apple-s-java-6">
+<h2>Removing Apple's Java 6</h2>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">You don't have permission on the directories that contain the JDK and the system's <tt class="docutils literal">java</tt> command.  So you'll need to execute your commands that modify these directories as the <tt class="docutils literal">root</tt> user, a.k.a. the superuser.  You can do that on a per-command basis by prepending your commands with <tt class="docutils literal">sudo</tt>.  These instructions have <tt class="docutils literal">sudo</tt> prepended, so you can simply copy and paste them into your command line.  Note that <tt class="docutils literal">sudo</tt> will ask you for your password and it will not be echoed as you type it.  Just type it and press ENTER.</p>
+</div>
+<p>Remove Apple's JVMs:</p>
+<pre class="code bash literal-block">
+<span class="nv">$ </span>sudo rm -rf /System/Library/Java/JavaVirtualMachines/
+</pre>
+<p>Remove installer records:</p>
+<pre class="code bash literal-block">
+<span class="nv">$ </span>sudo rm /private/var/db/receipts/com.apple.pkg.JavaForMacOSX*
+</pre>
+<p>Remove intaller receipts by editing <tt class="docutils literal">/Library/Receipts/InstallHistory.plist</tt> and removing any <tt class="docutils literal"><span class="pre">&lt;dict&gt;...&lt;/dict&gt;</span></tt> entries that contain references to Apple's Java.  You can recognize these dict entries because they'll have child elements that contain <tt class="docutils literal">com.apple</tt>.  You can leave Oracle's installation receipts alone.  It's a bit tedious editing this file.  I found the dict elements by searching for <tt class="docutils literal">ava</tt>.  Note that you'll need to edit this file as the superuser, for example by doing:</p>
+<pre class="code bash literal-block">
+<span class="nv">$ </span>sudo emacs /Library/Receipts/InstallHistory.plist
+</pre>
+<p>Once you've removed all these traces of Apple's Java 6 install, Apple's software update should not (re)install Java 6 and you should only need to reset your symlinks when you install a new JDK from Oracle.</p>
+</div>
+</div>
+<div class="section" id="setting-the-symlinks-for-java-7">
+<h1>Setting The Symlinks for Java 7</h1>
+<pre class="code bash literal-block">
+<span class="nv">$ </span>sudo rm /usr/bin/java
+<span class="nv">$ </span>sudo ln -s /Library/Java/JavaVirtualMachines/jdk1.7.0_17.jdk/Contents/Home/bin/java /usr/bin/java
+</pre>
+<p>That's it!  Now you should get this:</p>
+<pre class="code bash literal-block">
+<span class="nv">$ </span>java -version
+java version <span class="s2">&quot;1.7.0_17&quot;</span>
+Java<span class="o">(</span>TM<span class="o">)</span> SE Runtime Environment <span class="o">(</span>build 1.7.0_17-b02<span class="o">)</span>
+Java HotSpot<span class="o">(</span>TM<span class="o">)</span> 64-Bit Server VM <span class="o">(</span>build 23.7-b01, mixed mode<span class="o">)</span>
+<span class="nv">$ </span>javac -version
+javac 1.7.0_17
+</pre>
+<div class="section" id="optional-java-home">
+<h2>Optional: JAVA_HOME</h2>
+<p>Some Java software, like Tomcat, require that you set an environment variable named <tt class="docutils literal">JAVA_HOME</tt>.  The convention in Mac OS X is to make a symlink named <tt class="docutils literal">/Library/Java/Home</tt> and assign it to your <tt class="docutils literal">JAVA_HOME</tt> environment variable.  That way you don't have to remember to update your <tt class="docutils literal">JAVA_HOME</tt> environment variable when you install a new JDK, but you do have to update the symlink.  The following assumes you already have a <tt class="docutils literal">/Library/Java/Home</tt> symlink (Apple's installer used to set it, I think.  Maybe it still does.)</p>
+<pre class="code bash literal-block">
+<span class="nv">$ </span>sudo rm /Library/Java/Home
+<span class="nv">$ </span>sudo ln -s /Library/Java/JavaVirtualMachines/jdk1.7.0_17.jdk/Contents/Home /Library/Java/Home
+</pre>
+</div>
+</div>
+<div class="section" id="background-the-path-symbolic-links-and-the-unix-directory-tree">
+<span id="background"></span><h1>Background - The PATH, Symbolic Links, and the Unix Directory Tree</h1>
+<div class="section" id="the-terminal">
+<h2>The Terminal</h2>
+<p>Apple provides a fairly decent terminal emulator in /Applications/Terminal.app.  Go ahead and put this in your dock.  If you're a CS major, you'll use it every day.  Terminal provides you with command shell known as BASH (Bourne Again Shell).  A shell is a program that allows a user to interact directly with the operating system.  You're already familiar with graphical shells that include things like file explorers, start menus, and control panels.  Command line shells, at least the ones on Unix, are far more powerful than graphical shells, so you need to learn one, and BASH is by far the most popular.  The rest of these instructions are BASH commands that take place in Terminal.</p>
+</div>
+<div class="section" id="the-path">
+<h2>The PATH</h2>
+<p>Unix (and Windows) maintains a set of global variables accessible to all programs called <em>environment variables</em>. You can get a list of them with the <tt class="docutils literal">env</tt> command (I've only shown a few interesting ones here):</p>
+<pre class="code bash literal-block">
+<span class="nv">$ </span>env
+<span class="nv">TERM_PROGRAM</span><span class="o">=</span>Apple_Terminal
+<span class="nv">SHELL</span><span class="o">=</span>/bin/bash
+<span class="nv">PATH</span><span class="o">=</span>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+<span class="nv">JAVAFX_HOME</span><span class="o">=</span>/Library/Java/Home
+<span class="nv">PWD</span><span class="o">=</span>/System/Library/Java
+<span class="nv">JAVA_HOME</span><span class="o">=</span>/Library/Java/Home
+<span class="nv">PS1</span><span class="o">=</span><span class="se">\[\0</span>33<span class="o">[</span>32;1m<span class="se">\]</span><span class="o">[</span><span class="se">\u</span>&#64;<span class="se">\h</span> <span class="se">\w</span><span class="o">]</span><span class="se">\n</span><span class="nv">$ </span><span class="se">\[\0</span>33<span class="o">[</span>0m<span class="se">\]</span>
+<span class="nv">HOME</span><span class="o">=</span>/Users/chris
+<span class="nv">LOGNAME</span><span class="o">=</span>chris
+</pre>
+<p>The important environment variable to note for now is the PATH variable.  The PATH variable contains a colon-separated list of directory paths that contain executable files (commands).  When you type a command at the shell prompt, the directories in PATH are searched for a match.  You can find out exactly which executable file will be executed in response to a particular command with the <tt class="docutils literal">which</tt> command:</p>
+<pre class="code bash literal-block">
+<span class="nv">$ </span>which java
+/usr/bin/java
+</pre>
+<p>As you can see, the <tt class="docutils literal">java</tt> command on Mac OS X is contained in the <tt class="docutils literal">/usr/bin</tt> directory, but its a symbolic link to the actual locatoin of the <tt class="docutils literal">java</tt> executable.  You can see this by getting a &quot;long&quot; directory listing of it (the <tt class="docutils literal"><span class="pre">-l</span></tt> switch to the <tt class="docutils literal">ls</tt> command gives detailed info about directory entries).</p>
+<pre class="code bash literal-block">
+<span class="nv">$ </span>ls -l /usr/bin/java
+lrwxr-xr-x  1 root  wheel  72 Mar 13 23:36 /usr/bin/java -&gt; /Library/Java/JavaVirtualMachines/jdk1.7.0_17.jdk/Contents/Home/bin/java
+</pre>
+<p>That &quot;-&gt;&quot; in the directory listing means it's a symbolic link.</p>
+</div>
+<div class="section" id="symbolic-links">
+<h2>Symbolic Links</h2>
+<p>A link is a pointer to a file or a directory, kind of like a reference variable.  A hard link is a directory entry that points to a file on disk.  Every file has (at least) one hard link.  A symbolic link, or soft link, is a directory entry that points to a hard link, like an alias.  You create symbolic links with the <tt class="docutils literal">ln <span class="pre">-s</span></tt> command.  (You can also create hard links, but don't.)  When you remove the last hard link to a file, you can no longer access the file.  This is what generally happens when you delete a file.  The directory entry for it (hard link) is gone, but the contents remain on disk until they are overwritten.  When you delete a directory entry that's a symlink, only the symlink is gone.  The file and its hard link remain.</p>
+<p>Here's a simple example.  We create a text file named <tt class="docutils literal">foo.txt</tt> containing the text &quot;bar&quot; and a symlink to <tt class="docutils literal">foo.txt</tt> named <tt class="docutils literal">baz.txt</tt>.  The general form of the <tt class="docutils literal">ln <span class="pre">-s</span></tt> command is <tt class="docutils literal">ln <span class="pre">-s</span> <span class="pre">&lt;hard-link&gt;</span> <span class="pre">&lt;soft-link&gt;</span></tt>.</p>
+<pre class="code bash literal-block">
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;bar&quot;</span> &gt; foo.txt
+<span class="nv">$ </span>cat foo.txt
+bar
+<span class="nv">$ </span>ln -s foo.txt baz.txt
+<span class="nv">$ </span>ls -l
+total 16
+lrwxr-xr-x  1 chris  staff  7 Mar 13 22:46 baz.txt -&gt; foo.txt
+-rw-r--r--  1 chris  staff  4 Mar 13 22:45 foo.txt
+<span class="nv">$ </span>cat baz.txt
+bar
+</pre>
+<p>As you can see, the symbolic link acts just like the original hard link.</p>
+</div>
+<div class="section" id="the-unix-file-system">
+<h2>The Unix File System</h2>
+<p>The Unix file system is organized as a tree.  There is a root directory, <tt class="docutils literal">/</tt>, and a tree of directories under <tt class="docutils literal">/</tt> <a class="footnote-reference" href="#id2" id="id1">[1]</a>.  Just like in other operating systems' file systems, every directory entry has an owner, a group, and access permissions.  The important thing you need to know for now is that you don't have permission on the directories that contain the JDK and the system's <tt class="docutils literal">java</tt> command.  So you'll need to execute your commands that modify these directories as the <tt class="docutils literal">root</tt> user, a.k.a. the superuser.  You can do that on a per-command basis by prepending your commands with <tt class="docutils literal">sudo</tt>.  These instructions have <tt class="docutils literal">sudo</tt> prepended, so you can simply copy and paste them into your command line.  Note that <tt class="docutils literal">sudo</tt> will ask you for your password and it will not be echoed as you type it.  Just type it and press ENTER.</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>The Windows file system is organized as a forrest with possibly multiple roots at <tt class="docutils literal">C:\</tt>, <tt class="docutils literal">D:\</tt>, and so on.  Windows directories are also tightly bound to disk partitions, i.e., <tt class="docutils literal">C:\</tt> and <tt class="docutils literal">D:\</tt> are the roots of filesystems on  different disk partitions.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</body>
+</html>
